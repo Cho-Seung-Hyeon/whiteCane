@@ -66,8 +66,8 @@ void loop() {
     return;
   }
 
-  // 타입 프린트 하기
-  Serial.print(F("타입 : "));
+  // 장소 프린트 하기
+  Serial.print(F("장소 : "));
   for (uint8_t i = 0; i < 16; i++) {
     if (buffer1[i] != 32)  { // 32가  ' ' 공란의 바이트 값
       Serial.write(buffer1[i]);
@@ -77,31 +77,6 @@ void loop() {
 
   
   //-------------------------------------------
-  byte buffer2[18];
-  block = 4;
-
-  //------------------------------------------- 옵션 얻기
-  status = mfrc522.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, 4, &key, &(mfrc522.uid)); //line 834 of MFRC522.cpp file
-  if (status != MFRC522::STATUS_OK) {
-    Serial.print(F("Authentication failed: "));
-    Serial.println(mfrc522.GetStatusCodeName(status));
-    return;
-  }
-
-  status = mfrc522.MIFARE_Read(block, buffer2, &len);
-  if (status != MFRC522::STATUS_OK) {
-    Serial.print(F("Reading failed: "));
-    Serial.println(mfrc522.GetStatusCodeName(status));
-    return;
-  }
-
-  //옵션 프린트하기
-  Serial.print("옵션 : ");
-  for (uint8_t i = 0; i < 16; i++)  {
-    if (buffer2[i] != 32)  {
-      Serial.write(buffer2[i]);
-    }
-  }
   
   //----------------------------------------
 
